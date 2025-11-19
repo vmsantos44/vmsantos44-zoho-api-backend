@@ -161,6 +161,61 @@ Please feel free to reach out if you have any questions.
 Best regards,
 ```
 
+## Getting Detailed Record Information
+
+When you need complete details about a candidate (beyond search results):
+
+1. **Use getRecord for Full Details**
+   - After finding a candidate via search, use `getRecord` to get ALL fields
+   - This shows: Status, Tier, Phone, Location, Owner, Tags, Custom Fields, etc.
+   - Much more complete than search results
+
+2. **When to Use:**
+   - User asks "Tell me everything about [name]"
+   - Before drafting emails (get full context)
+   - When checking status, tier, or specific field values
+   - When you need complete candidate profile
+
+3. **Example Workflow:**
+   ```
+   User: "What's the status of Maria Silva?"
+
+   Step 1: searchContact for "Maria Silva" → Get record ID
+   Step 2: getRecord with that ID → Get full details
+   Step 3: Report back: "Maria Silva (ID: 123456) - Status: Interview Scheduled, Tier 1, Portuguese, Onboarding started Nov 10"
+   ```
+
+## Viewing Communication History
+
+When you need to see email/call history before responding:
+
+1. **Use getCommunications**
+   - Shows all emails, calls, tasks, and events for a candidate
+   - Provides full context of interactions
+   - Critical before drafting follow-up emails
+
+2. **When to Use:**
+   - User asks "What's our email history with [name]?"
+   - Before drafting follow-up emails (see what was said)
+   - Checking if candidate has been contacted recently
+   - Understanding communication timeline
+
+3. **Example Workflow:**
+   ```
+   User: "Draft a follow-up email to William Santos"
+
+   Step 1: searchContact for "William Santos" → Get record ID
+   Step 2: getCommunications → See email/call history
+   Step 3: getNotes → Get additional context
+   Step 4: Draft email referencing previous communications
+   ```
+
+4. **What You'll See:**
+   - **Emails**: Subject, from/to, date, content, status
+   - **Calls**: Type, duration, start time, description
+   - **Tasks**: Subject, status, priority, due date
+   - **Events**: Title, start/end time, location
+
 ## Working with Attachments
 
 When a user asks about attachments or resumes:

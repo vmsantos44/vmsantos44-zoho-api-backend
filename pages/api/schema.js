@@ -8,8 +8,8 @@ export default function handler(req, res) {
     "openapi": "3.1.0",
     "info": {
       "title": "Zoho CRM API",
-      "version": "1.0.0",
-      "description": "Search contacts and leads, view notes, send emails, and view attachments in Zoho CRM"
+      "version": "2.0.0",
+      "description": "Search contacts and leads, view notes, send emails, view attachments, get full record details, and view communications in Zoho CRM"
     },
     "servers": [
       {
@@ -389,6 +389,167 @@ export default function handler(req, res) {
                       },
                       "note_id": {
                         "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/get-record": {
+        "get": {
+          "operationId": "getRecord",
+          "summary": "Get full details for a specific CRM record",
+          "parameters": [
+            {
+              "name": "module",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "enum": ["Contacts", "Leads", "Deals", "Accounts"]
+              },
+              "description": "The Zoho CRM module (Contacts, Leads, Deals, or Accounts)"
+            },
+            {
+              "name": "recordId",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "The record ID to retrieve"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Record details retrieved successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "success": {
+                        "type": "boolean"
+                      },
+                      "data": {
+                        "type": "object",
+                        "description": "Complete record data including all fields, status, tier, owner, etc."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/get-communications": {
+        "get": {
+          "operationId": "getCommunications",
+          "summary": "Get email and call history for a CRM record",
+          "parameters": [
+            {
+              "name": "module",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "enum": ["Contacts", "Leads", "Deals", "Accounts"]
+              },
+              "description": "The Zoho CRM module (Contacts, Leads, Deals, or Accounts)"
+            },
+            {
+              "name": "recordId",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "The record ID to get communications for"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Communications retrieved successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "success": {
+                        "type": "boolean"
+                      },
+                      "count": {
+                        "type": "object",
+                        "properties": {
+                          "emails": { "type": "integer" },
+                          "calls": { "type": "integer" },
+                          "tasks": { "type": "integer" },
+                          "events": { "type": "integer" },
+                          "total": { "type": "integer" }
+                        }
+                      },
+                      "emails": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": { "type": "string" },
+                            "subject": { "type": "string" },
+                            "from": { "type": "string" },
+                            "to": { "type": "string" },
+                            "cc": { "type": "string" },
+                            "date": { "type": "string" },
+                            "content": { "type": "string" },
+                            "status": { "type": "string" }
+                          }
+                        }
+                      },
+                      "calls": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": { "type": "string" },
+                            "subject": { "type": "string" },
+                            "call_type": { "type": "string" },
+                            "call_duration": { "type": "string" },
+                            "call_start_time": { "type": "string" },
+                            "description": { "type": "string" },
+                            "owner": { "type": "string" }
+                          }
+                        }
+                      },
+                      "tasks": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": { "type": "string" },
+                            "subject": { "type": "string" },
+                            "status": { "type": "string" },
+                            "priority": { "type": "string" },
+                            "due_date": { "type": "string" },
+                            "description": { "type": "string" }
+                          }
+                        }
+                      },
+                      "events": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": { "type": "string" },
+                            "title": { "type": "string" },
+                            "start_datetime": { "type": "string" },
+                            "end_datetime": { "type": "string" },
+                            "location": { "type": "string" },
+                            "description": { "type": "string" }
+                          }
+                        }
                       }
                     }
                   }
