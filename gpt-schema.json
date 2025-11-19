@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://vmsantos44-zoho-api-backend-7c8n7s6f6.vercel.app"
+      "url": "https://vmsantos44-zoho-api-backend.vercel.app"
     }
   ],
   "paths": {
@@ -51,7 +51,7 @@
     "/api/search-lead": {
       "get": {
         "operationId": "searchLead",
-        "summary": "Search for a lead by name, email, or company",
+        "summary": "Search for a lead by name or email",
         "parameters": [
           {
             "name": "searchTerm",
@@ -60,7 +60,7 @@
             "schema": {
               "type": "string"
             },
-            "description": "The name, email, or company name to search for"
+            "description": "The first name, last name, or email to search for"
           }
         ],
         "responses": {
