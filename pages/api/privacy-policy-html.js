@@ -32,7 +32,7 @@ export default async function handler(req, res) {
         }
 
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
             color: white;
             padding: 3rem 2rem;
             text-align: center;
@@ -54,14 +54,14 @@ export default async function handler(req, res) {
 
         .contact-box {
             background: #f8f9fa;
-            border-left: 4px solid #667eea;
+            border-left: 4px solid #2196F3;
             padding: 1.5rem;
             margin: 2rem 0;
             border-radius: 4px;
         }
 
         .contact-box h3 {
-            color: #667eea;
+            color: #2196F3;
             margin-bottom: 1rem;
         }
 
@@ -86,7 +86,7 @@ export default async function handler(req, res) {
         }
 
         h2 {
-            color: #667eea;
+            color: #2196F3;
             font-size: 1.8rem;
             margin-bottom: 1rem;
             padding-bottom: 0.5rem;
@@ -94,7 +94,7 @@ export default async function handler(req, res) {
         }
 
         h3 {
-            color: #764ba2;
+            color: #1976D2;
             font-size: 1.3rem;
             margin: 1.5rem 0 0.75rem;
         }
@@ -121,7 +121,7 @@ export default async function handler(req, res) {
         }
 
         thead {
-            background: #667eea;
+            background: #2196F3;
             color: white;
         }
 
@@ -175,7 +175,7 @@ export default async function handler(req, res) {
         }
 
         .footer a {
-            color: #667eea;
+            color: #64B5F6;
             text-decoration: none;
         }
 
