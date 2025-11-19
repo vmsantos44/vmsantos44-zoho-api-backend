@@ -30,6 +30,18 @@ export default function handler(req, res) {
                 "type": "string"
               },
               "description": "The name or email to search for"
+            },
+            {
+              "name": "limit",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "integer",
+                "default": 10,
+                "minimum": 1,
+                "maximum": 50
+              },
+              "description": "Maximum number of results to return (default: 10, max: 50)"
             }
           ],
           "responses": {
@@ -67,6 +79,18 @@ export default function handler(req, res) {
                 "type": "string"
               },
               "description": "The first name, last name, or email to search for"
+            },
+            {
+              "name": "limit",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "integer",
+                "default": 10,
+                "minimum": 1,
+                "maximum": 50
+              },
+              "description": "Maximum number of results to return (default: 10, max: 50)"
             }
           ],
           "responses": {
