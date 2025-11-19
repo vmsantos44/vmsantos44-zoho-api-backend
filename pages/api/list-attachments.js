@@ -12,8 +12,11 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Get OAuth token
-    const tokenResponse = await fetch(`${process.env.VERCEL_URL || 'http://localhost:3000'}/api/oauth-token`);
+    // Get OAuth token - construct full URL with protocol
+    const baseUrl = process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : 'http://localhost:3000';
+    const tokenResponse = await fetch(`${baseUrl}/api/oauth-token`);
     const { access_token } = await tokenResponse.json();
 
     // Fetch attachments list from Zoho CRM
