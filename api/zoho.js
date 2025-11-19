@@ -88,7 +88,7 @@ class ZohoAPI {
 
   async searchLeads(searchTerm) {
     const accessToken = await this.getAccessToken();
-    
+
     try {
       const response = await axios.get(
         `${this.apiDomain}/crm/v2/Leads/search`,
@@ -104,8 +104,8 @@ class ZohoAPI {
 
       return response.data;
     } catch (error) {
-      console.error('Error searching leads:', error.response?.data || error.message);
-      throw new Error('Failed to search leads in Zoho CRM');
+      console.error('Error searching leads:', JSON.stringify(error.response?.data || error.message));
+      throw new Error(`Failed to search leads: ${JSON.stringify(error.response?.data) || error.message}`);
     }
   }
 
