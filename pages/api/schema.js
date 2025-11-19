@@ -338,6 +338,65 @@ export default function handler(req, res) {
             }
           }
         }
+      },
+      "/api/add-note": {
+        "post": {
+          "operationId": "addNote",
+          "summary": "Add a note to a Zoho CRM record",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "module": {
+                      "type": "string",
+                      "enum": ["Contacts", "Leads", "Deals", "Accounts"],
+                      "description": "The Zoho CRM module (Contacts, Leads, Deals, or Accounts)"
+                    },
+                    "record_id": {
+                      "type": "string",
+                      "description": "The record ID to add the note to"
+                    },
+                    "note_title": {
+                      "type": "string",
+                      "description": "Optional title for the note (defaults to 'Note from CRM Assistant')"
+                    },
+                    "note_content": {
+                      "type": "string",
+                      "description": "The content/body of the note"
+                    }
+                  },
+                  "required": ["module", "record_id", "note_content"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Note added successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "success": {
+                        "type": "boolean"
+                      },
+                      "message": {
+                        "type": "string"
+                      },
+                      "note_id": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   };
