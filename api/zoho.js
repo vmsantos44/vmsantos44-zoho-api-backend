@@ -97,7 +97,7 @@ class ZohoAPI {
             'Authorization': `Zoho-oauthtoken ${accessToken}`
           },
           params: {
-            criteria: `(First_Name:equals:${searchTerm})or(Last_Name:equals:${searchTerm})or(Email:equals:${searchTerm})or(Company:equals:${searchTerm})`
+            criteria: `(First_Name:equals:${searchTerm})or(Last_Name:equals:${searchTerm})or(Email:equals:${searchTerm})`
           }
         }
       );
