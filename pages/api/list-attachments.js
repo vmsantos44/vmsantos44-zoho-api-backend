@@ -1,3 +1,5 @@
+const axios = require('axios');
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -12,31 +14,35 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Get OAuth token - construct full URL with protocol
-    const baseUrl = process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : 'http://localhost:3000';
-    const tokenResponse = await fetch(`${baseUrl}/api/oauth-token`);
-    const { access_token } = await tokenResponse.json();
+    // Get access token using refresh token
+    const tokenResponse = await axios.post(
+      'https://accounts.zoho.com/oauth/v2/token',
+      null,
+      {
+        params: {
+          refresh_token: process.env.ZOHO_REFRESH_TOKEN,
+          client_id: process.env.ZOHO_CLIENT_ID,
+          client_secret: process.env.ZOHO_CLIENT_SECRET,
+          grant_type: 'refresh_token'
+        }
+      }
+    );
+
+    const accessToken = tokenResponse.data.access_token;
 
     // Fetch attachments list from Zoho CRM
-    const attachmentsUrl = `https://www.zohoapis.com/crm/v2/${module}/${record_id}/Attachments`;
-
-    const response = await fetch(attachmentsUrl, {
-      headers: {
-        'Authorization': `Zoho-oauthtoken ${access_token}`
+    const response = await axios.get(
+      `https://www.zohoapis.com/crm/v2/${module}/${record_id}/Attachments`,
+      {
+        headers: {
+          'Authorization': `Zoho-oauthtoken ${accessToken}`
+        }
       }
-    });
-
-    if (!response.ok) {
-      throw new Error(`Zoho API error: ${response.status} ${response.statusText}`);
-    }
-
-    const data = await response.json();
+    );
 
     // Format attachment data for easy viewing
-    if (data.data && data.data.length > 0) {
-      const attachments = data.data.map(att => ({
+    if (response.data.data && response.data.data.length > 0) {
+      const attachments = response.data.data.map(att => ({
         id: att.id,
         file_name: att.File_Name,
         size: att.Size,
@@ -61,10 +67,11 @@ export default async function handler(req, res) {
     }
 
   } catch (error) {
-    console.error('Error listing attachments:', error);
+    console.error('Error listing attachments:', error.response?.data || error.message);
     return res.status(500).json({
+      success: false,
       error: 'Failed to list attachments',
-      details: error.message
+      details: error.response?.data || error.message
     });
   }
 }
