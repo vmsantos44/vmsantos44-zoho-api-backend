@@ -1,3 +1,5 @@
+const axios = require('axios');
+
 export default async function handler(req, res) {
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -20,41 +22,31 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Get OAuth token - construct full URL with protocol
-    const baseUrl = process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : 'http://localhost:3000';
-    const tokenResponse = await fetch(`${baseUrl}/api/oauth-token`);
-    const { access_token } = await tokenResponse.json();
+    // Get access token using refresh token
+    const tokenResponse = await axios.post(
+      'https://accounts.zoho.com/oauth/v2/token',
+      null,
+      {
+        params: {
+          refresh_token: process.env.ZOHO_REFRESH_TOKEN,
+          client_id: process.env.ZOHO_CLIENT_ID,
+          client_secret: process.env.ZOHO_CLIENT_SECRET,
+          grant_type: 'refresh_token'
+        }
+      }
+    );
+
+    const accessToken = tokenResponse.data.access_token;
 
     // Fetch related records (Activities in Zoho includes Emails, Calls, Tasks, Events)
-    const relatedUrl = `https://www.zohoapis.com/crm/v2/${module}/${recordId}/Activities`;
-
-    const response = await fetch(relatedUrl, {
-      headers: {
-        'Authorization': `Zoho-oauthtoken ${access_token}`,
-        'Content-Type': 'application/json'
+    const response = await axios.get(
+      `https://www.zohoapis.com/crm/v2/${module}/${recordId}/Activities`,
+      {
+        headers: {
+          'Authorization': `Zoho-oauthtoken ${accessToken}`
+        }
       }
-    });
-
-    if (!response.ok) {
-      // If 204 No Content, there are no activities
-      if (response.status === 204) {
-        return res.status(200).json({
-          success: true,
-          emails: [],
-          calls: [],
-          tasks: [],
-          events: [],
-          message: 'No communications found for this record'
-        });
-      }
-
-      const errorText = await response.text();
-      throw new Error(`Zoho API error: ${response.status} ${response.statusText} - ${errorText}`);
-    }
-
-    const data = await response.json();
+    );
 
     // Separate activities by type
     const emails = [];
@@ -62,8 +54,8 @@ export default async function handler(req, res) {
     const tasks = [];
     const events = [];
 
-    if (data.data && Array.isArray(data.data)) {
-      data.data.forEach(activity => {
+    if (response.data.data && Array.isArray(response.data.data)) {
+      response.data.data.forEach(activity => {
         // Zoho uses $se_module to indicate activity type
         const activityType = activity.$se_module;
 
@@ -126,11 +118,30 @@ export default async function handler(req, res) {
     });
 
   } catch (error) {
-    console.error('Error fetching communications:', error);
+    // If 204 No Content or 404, there are no activities
+    if (error.response?.status === 204 || error.response?.status === 404) {
+      return res.status(200).json({
+        success: true,
+        count: {
+          emails: 0,
+          calls: 0,
+          tasks: 0,
+          events: 0,
+          total: 0
+        },
+        emails: [],
+        calls: [],
+        tasks: [],
+        events: [],
+        message: 'No communications found for this record'
+      });
+    }
+
+    console.error('Error fetching communications:', error.response?.data || error.message);
     return res.status(500).json({
       success: false,
       error: 'Failed to fetch communications',
-      details: error.message
+      details: error.response?.data || error.message
     });
   }
 }

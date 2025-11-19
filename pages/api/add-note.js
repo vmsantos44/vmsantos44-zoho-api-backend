@@ -1,3 +1,5 @@
+const axios = require('axios');
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -12,16 +14,23 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Get OAuth token - construct full URL with protocol
-    const baseUrl = process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : 'http://localhost:3000';
-    const tokenResponse = await fetch(`${baseUrl}/api/oauth-token`);
-    const { access_token } = await tokenResponse.json();
+    // Get access token using refresh token
+    const tokenResponse = await axios.post(
+      'https://accounts.zoho.com/oauth/v2/token',
+      null,
+      {
+        params: {
+          refresh_token: process.env.ZOHO_REFRESH_TOKEN,
+          client_id: process.env.ZOHO_CLIENT_ID,
+          client_secret: process.env.ZOHO_CLIENT_SECRET,
+          grant_type: 'refresh_token'
+        }
+      }
+    );
+
+    const accessToken = tokenResponse.data.access_token;
 
     // Create note in Zoho CRM
-    const notesUrl = `https://www.zohoapis.com/crm/v2/${module}/${record_id}/Notes`;
-
     const noteData = {
       data: [
         {
@@ -32,43 +41,38 @@ export default async function handler(req, res) {
       ]
     };
 
-    const response = await fetch(notesUrl, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Zoho-oauthtoken ${access_token}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(noteData)
-    });
+    const response = await axios.post(
+      `https://www.zohoapis.com/crm/v2/${module}/${record_id}/Notes`,
+      noteData,
+      {
+        headers: {
+          'Authorization': `Zoho-oauthtoken ${accessToken}`,
+          'Content-Type': 'application/json'
+        }
+      }
+    );
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`Zoho API error: ${response.status} ${response.statusText} - ${errorText}`);
-    }
-
-    const data = await response.json();
-
-    if (data.data && data.data[0] && data.data[0].code === 'SUCCESS') {
+    if (response.data.data && response.data.data[0] && response.data.data[0].code === 'SUCCESS') {
       return res.status(200).json({
         success: true,
         message: 'Note added successfully',
-        note_id: data.data[0].details.id,
-        data: data.data[0]
+        note_id: response.data.data[0].details.id,
+        data: response.data.data[0]
       });
     } else {
       return res.status(400).json({
         success: false,
         error: 'Failed to create note',
-        details: data
+        details: response.data
       });
     }
 
   } catch (error) {
-    console.error('Error adding note:', error);
+    console.error('Error adding note:', error.response?.data || error.message);
     return res.status(500).json({
       success: false,
       error: 'Failed to add note',
-      details: error.message
+      details: error.response?.data || error.message
     });
   }
 }

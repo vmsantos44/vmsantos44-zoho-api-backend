@@ -1,3 +1,5 @@
+const axios = require('axios');
+
 export default async function handler(req, res) {
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -20,35 +22,37 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Get OAuth token - construct full URL with protocol
-    const baseUrl = process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : 'http://localhost:3000';
-    const tokenResponse = await fetch(`${baseUrl}/api/oauth-token`);
-    const { access_token } = await tokenResponse.json();
+    // Get access token using refresh token
+    const tokenResponse = await axios.post(
+      'https://accounts.zoho.com/oauth/v2/token',
+      null,
+      {
+        params: {
+          refresh_token: process.env.ZOHO_REFRESH_TOKEN,
+          client_id: process.env.ZOHO_CLIENT_ID,
+          client_secret: process.env.ZOHO_CLIENT_SECRET,
+          grant_type: 'refresh_token'
+        }
+      }
+    );
+
+    const accessToken = tokenResponse.data.access_token;
 
     // Fetch record from Zoho CRM
-    const recordUrl = `https://www.zohoapis.com/crm/v2/${module}/${recordId}`;
-
-    const response = await fetch(recordUrl, {
-      headers: {
-        'Authorization': `Zoho-oauthtoken ${access_token}`,
-        'Content-Type': 'application/json'
+    const response = await axios.get(
+      `https://www.zohoapis.com/crm/v2/${module}/${recordId}`,
+      {
+        headers: {
+          'Authorization': `Zoho-oauthtoken ${accessToken}`
+        }
       }
-    });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`Zoho API error: ${response.status} ${response.statusText} - ${errorText}`);
-    }
-
-    const data = await response.json();
+    );
 
     // Zoho returns data in a "data" array with one record
-    if (data.data && data.data.length > 0) {
+    if (response.data.data && response.data.data.length > 0) {
       return res.status(200).json({
         success: true,
-        data: data.data[0]
+        data: response.data.data[0]
       });
     } else {
       return res.status(404).json({
@@ -58,11 +62,11 @@ export default async function handler(req, res) {
     }
 
   } catch (error) {
-    console.error('Error fetching record:', error);
+    console.error('Error fetching record:', error.response?.data || error.message);
     return res.status(500).json({
       success: false,
       error: 'Failed to fetch record',
-      details: error.message
+      details: error.response?.data || error.message
     });
   }
 }
