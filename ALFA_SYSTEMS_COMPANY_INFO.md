@@ -3,36 +3,31 @@
 
 ---
 
-## Team Members (from Official Email Signatures)
+## Current Team Members
 
 ### Leadership & Management
 - **Armenio** - Executive leadership
 - **Edson** - Operations and technical management
 - **Noel** - Management
 
-### Recruitment Team
-- **Recruitment** - General recruitment team contact
-- **Rose** - Recruitment coordinator
-- **Elida** - Recruitment specialist
-- **Elizabeth** - Recruitment specialist
-- **Kenedy** - Recruitment specialist
+### Active Recruitment Team
+- **Recruitment** - General recruitment team contact (team@alfasystems.com)
 - **Khoudia** - Recruitment specialist
 - **Romina** - Recruitment specialist
-- **Kelly** - Recruitment specialist
 
 ### Specialized Functions
 - **Gilda** - Payments and financial processing
-- **Linda** - Administrative and documentation
 - **Ricky** - Client cloud and enterprise accounts
-- **Clifton** - Workforce coordination
 - **Workforce** - Workforce management team
 
 ### Automation System Owner Mappings
 (From CRM automation configuration):
 - **Gilda** → Payments, invoices, financial matters
-- **Fábio** → Contracts, legal documents, agreements
-- **Edon** → Technical support, platform issues, system access
+- **Fábio** → Contracts, legal documents, agreements (automation config)
+- **Edon** → Technical support, platform issues, system access (automation config)
 - **Ricky** → Client cloud services, enterprise accounts
+
+**Note:** Team roster updated November 2025. Former members (Rose, Elida, Elizabeth, Kenedy, Kelly, Linda, Clifton) are no longer with the company.
 
 ---
 
@@ -53,18 +48,13 @@
 - **Status in CRM:** "Interview Scheduled"
 
 #### Stage 3: Tier Classification
-**Official Tier Definitions:**
+**Official Tier Definitions (from Candidate Screening Process - November 2025):**
 
-| Tier | Description |
-|------|-------------|
-| **Tier 1** | Experienced interpreters with OPI/VRI background |
-| **Tier 2** | On-site interpreters transitioning to remote |
-| **Tier 3** | New interpreters without formal experience |
-
-**AI System adds additional criteria:**
-- Tier 1: 1+ years OPI, 4+ hours training, certifications preferred
-- Tier 2: 1+ years on-site, industry training
-- Tier 3: Entry level, minimal/no training
+| Tier | Criteria |
+|------|----------|
+| **Tier 1 - Highly Qualified** | • Minimum 1 year of Over-the-Phone Interpretation (OPI) experience<br>• At least 40 hours of official interpreter training<br>• Professional certification (preferred)<br>• Ready for immediate deployment |
+| **Tier 2 - Qualified** | • Minimum 1 year of formal on-site interpretation (hospitals, legal settings)<br>• Industry-standard interpretation training<br>• Can transition to OPI with 2-3 weeks training (40 hours) |
+| **Tier 3 - Entry Level** | • Limited or no formal interpretation experience<br>• Minimal professional training<br>• Requires foundational training before assignment |
 
 #### Stage 4: Assessment Phase
 - Candidates complete language or interpretation assessments
