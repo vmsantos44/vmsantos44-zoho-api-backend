@@ -558,6 +558,42 @@ export default function handler(req, res) {
             }
           }
         }
+      },
+      "/api/privacy-policy": {
+        "get": {
+          "operationId": "getPrivacyPolicy",
+          "summary": "Get Alfa Systems privacy policy",
+          "description": "Returns structured privacy policy information including data collection, rights, contact details, and compliance information",
+          "responses": {
+            "200": {
+              "description": "Privacy policy retrieved successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "company": { "type": "string" },
+                      "effective_date": { "type": "string" },
+                      "version": { "type": "string" },
+                      "contact": {
+                        "type": "object",
+                        "properties": {
+                          "email": { "type": "string" },
+                          "phone": { "type": "string" },
+                          "address": { "type": "string" }
+                        }
+                      },
+                      "sections": {
+                        "type": "object",
+                        "description": "Detailed privacy policy sections including data collection, rights, security, etc."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   };
