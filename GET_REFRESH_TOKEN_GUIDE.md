@@ -26,7 +26,7 @@ Keep these safe - you'll need them!
 Replace `YOUR_CLIENT_ID` below with your actual Client ID:
 
 ```
-https://accounts.zoho.com/oauth/v2/auth?scope=ZohoCRM.modules.ALL,ZohoCRM.settings.ALL,ZohoCRM.users.ALL,ZohoBooks.fullaccess.all,ZohoDrive.files.ALL,ZohoMail.messages.ALL&client_id=YOUR_CLIENT_ID&response_type=code&access_type=offline&redirect_uri=https://oauth.pstmn.io/v1/callback
+https://accounts.zoho.com/oauth/v2/auth?scope=ZohoCRM.modules.ALL,ZohoCRM.settings.ALL,ZohoCRM.users.ALL,ZohoBooks.fullaccess.all,ZohoDrive.files.ALL,ZohoMail.messages.ALL,ZohoSheet.dataAPI.READ&client_id=YOUR_CLIENT_ID&response_type=code&access_type=offline&redirect_uri=https://oauth.pstmn.io/v1/callback
 ```
 
 **What these scopes give you:**
@@ -36,6 +36,7 @@ https://accounts.zoho.com/oauth/v2/auth?scope=ZohoCRM.modules.ALL,ZohoCRM.settin
 - `ZohoBooks.fullaccess.all` - Full access to Zoho Books
 - `ZohoDrive.files.ALL` - Access to Zoho Drive files
 - `ZohoMail.messages.ALL` - Access to Zoho Mail
+- `ZohoSheet.dataAPI.READ` - Read-only access to Zoho Sheet data (for CRM reporting dashboard)
 
 ## Step 4: Visit the Authorization URL
 
@@ -99,6 +100,7 @@ Your API now has full access to:
 - ✅ Zoho Books
 - ✅ Zoho Drive
 - ✅ Zoho Mail
+- ✅ Zoho Sheet (read-only)
 
 Your Custom GPT can now call any of these endpoints successfully!
 
@@ -112,5 +114,5 @@ Your Custom GPT can now call any of these endpoints successfully!
 
 **Scopes requested:**
 ```
-ZohoCRM.modules.ALL,ZohoCRM.settings.ALL,ZohoCRM.users.ALL,ZohoBooks.fullaccess.all,ZohoDrive.files.ALL,ZohoMail.messages.ALL
+ZohoCRM.modules.ALL,ZohoCRM.settings.ALL,ZohoCRM.users.ALL,ZohoBooks.fullaccess.all,ZohoDrive.files.ALL,ZohoMail.messages.ALL,ZohoSheet.dataAPI.READ
 ```

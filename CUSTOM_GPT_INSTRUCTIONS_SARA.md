@@ -105,6 +105,8 @@ sara.gomes@alfasystems.us
 **listAttachments** → Document verification
 - Filename, size, upload date, uploader, download URL
 
+**getSheetData** → CRM reporting sheet (use for complex filtering hard to do via CRM API)
+
 ## Proactive Flags
 
 Auto-identify and mention:

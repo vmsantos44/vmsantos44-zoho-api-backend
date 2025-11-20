@@ -1,0 +1,150 @@
+[1m[36m
+╔════════════════════════════════════════════════════════════╗
+║   Zoho CRM GPT API - Comprehensive Error Test Suite       ║
+╚════════════════════════════════════════════════════════════╝
+[0m
+[90mAPI: https://vmsantos44-zoho-api-backend.vercel.app[0m
+[90mStarted: 2025-11-19T16:08:32.305Z[0m
+
+[1m[36mChecking API availability...[0m
+[32m✓ API is reachable[0m
+
+
+[1m[36mTesting /api/search-contact[0m
+[90m============================================================[0m
+
+[32m✓[0m Missing searchTerm parameter
+[32m✓[0m Empty searchTerm parameter
+[32m✓[0m POST method not allowed
+[32m✓[0m PUT method not allowed
+[32m✓[0m DELETE method not allowed
+[32m✓[0m Invalid limit parameter (non-numeric)
+[32m✓[0m Negative limit parameter
+[32m✓[0m Extremely large limit (1000000)
+
+[1m[36mTesting /api/search-lead[0m
+[90m============================================================[0m
+
+[32m✓[0m Missing searchTerm parameter
+[32m✓[0m Empty searchTerm parameter
+[32m✓[0m POST method not allowed
+[32m✓[0m Invalid limit parameter type
+
+[1m[36mTesting /api/get-notes[0m
+[90m============================================================[0m
+
+[32m✓[0m Missing module and recordId
+[32m✓[0m Missing module parameter
+[32m✓[0m Missing recordId parameter
+[32m✓[0m POST method not allowed
+[32m✓[0m Empty module parameter
+[32m✓[0m Empty recordId parameter
+[32m✓[0m Invalid recordId format (letters)
+
+[1m[36mTesting /api/send-email[0m
+[90m============================================================[0m
+
+[32m✓[0m GET method not allowed
+[32m✓[0m Missing all required fields
+[32m✓[0m Missing toAddress field
+[32m✓[0m Missing subject field
+[32m✓[0m Missing body field
+[32m✓[0m Invalid email format
+[32m✓[0m Malformed JSON body
+[32m✓[0m Empty string fields
+[32m✓[0m Extremely long body (1MB+)
+
+[1m[36mTesting /api/list-attachments[0m
+[90m============================================================[0m
+
+[32m✓[0m GET method not allowed
+[32m✓[0m Missing module and record_id
+[32m✓[0m Missing module field
+[32m✓[0m Missing record_id field
+[32m✓[0m Invalid module name
+[32m✓[0m Malformed JSON body
+[32m✓[0m Null field values
+
+[1m[36mTesting /api/get-attachment[0m
+[90m============================================================[0m
+
+[32m✓[0m GET method not allowed
+[32m✓[0m Missing all required fields
+[32m✓[0m Missing module field
+[32m✓[0m Missing record_id field
+[32m✓[0m Missing attachment_id field
+[32m✓[0m Invalid attachment_id format
+[32m✓[0m Non-existent attachment ID
+
+[1m[36mTesting /api/add-note[0m
+[90m============================================================[0m
+
+[32m✓[0m GET method not allowed
+[32m✓[0m Missing all required fields
+[32m✓[0m Missing module field
+[32m✓[0m Missing record_id field
+[32m✓[0m Missing note_content field
+[32m✓[0m Empty note_content
+[32m✓[0m Extremely long note_content (100KB+)
+[32m✓[0m Invalid module name
+
+[1m[36mTesting /api/get-record[0m
+[90m============================================================[0m
+
+[32m✓[0m POST method not allowed
+[32m✓[0m Missing module and recordId
+[32m✓[0m Missing module parameter
+[32m✓[0m Missing recordId parameter
+[32m✓[0m Invalid module (not in valid list)
+[32m✓[0m Non-existent recordId
+[32m✓[0m Invalid recordId format (letters)
+[32m✓[0m Empty module parameter
+[32m✓[0m Lowercase module name
+
+[1m[36mTesting /api/get-communications[0m
+[90m============================================================[0m
+
+[32m✓[0m POST method not allowed
+[32m✓[0m Missing module and recordId
+[32m✓[0m Missing module parameter
+[32m✓[0m Missing recordId parameter
+[32m✓[0m Invalid module name
+[32m✓[0m Non-existent recordId
+[32m✓[0m Invalid recordId format
+
+[1m[36mTesting /api/privacy-policy[0m
+[90m============================================================[0m
+
+[32m✓[0m POST method not allowed
+[32m✓[0m PUT method not allowed
+[32m✓[0m DELETE method not allowed
+[32m✓[0m Valid GET request returns 200
+
+[1m[36mTesting Cross-Cutting Concerns[0m
+[90m============================================================[0m
+
+[32m✓[0m CORS headers present
+[32m✓[0m JSON content-type for errors
+[32m✓[0m Non-existent endpoint returns 404
+[32m✓[0m Root path handling
+[32m✓[0m OPTIONS request for CORS preflight
+
+[1m[36mTesting Rate Limiting (if implemented)[0m
+[90m============================================================[0m
+
+  [90mNo rate limiting detected[0m
+[32m✓[0m Rapid sequential requests
+
+[1m[36m============================================================[0m
+[1mTEST SUMMARY[0m
+
+Total Tests:  76
+[32mPassed:       76[0m
+[31mFailed:       0[0m
+[90mSkipped:      0[0m
+
+Duration:     33.29s
+Completed:    2025-11-19T16:09:05.602Z
+
+[1m[36m============================================================[0m
+

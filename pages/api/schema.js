@@ -8,8 +8,8 @@ export default function handler(req, res) {
     "openapi": "3.1.0",
     "info": {
       "title": "Zoho CRM API",
-      "version": "2.0.0",
-      "description": "Search contacts and leads, view notes, send emails, view attachments, get full record details, and view communications in Zoho CRM"
+      "version": "2.1.0",
+      "description": "Search contacts and leads, view notes, send emails, view attachments, get full record details, view communications in Zoho CRM, and query reporting data from Zoho Sheet dashboard"
     },
     "servers": [
       {
@@ -586,6 +586,60 @@ export default function handler(req, res) {
                       "sections": {
                         "type": "object",
                         "description": "Detailed privacy policy sections including data collection, rights, security, etc."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/get-sheet-data": {
+        "get": {
+          "operationId": "getSheetData",
+          "summary": "Get data from Zoho Sheet reporting dashboard",
+          "description": "Read-only access to CRM reporting dashboard in Zoho Sheet. The sheet is auto-populated hourly with CRM data for easier filtering and analysis. Use this to answer complex queries that are hard to filter via CRM API.",
+          "parameters": [
+            {
+              "name": "resourceId",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "The Zoho Sheet resource ID (from the sheet URL). Example: 'tdar2201260c19806490a9eac0aa6e771d83e'"
+            },
+            {
+              "name": "range",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "string"
+              },
+              "description": "Optional cell range to retrieve. Examples: 'N6' (single cell), 'A1:D10' (range), 'Sheet1!A1:B5' (specific sheet). Omit to get entire first sheet."
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Sheet data retrieved successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "success": {
+                        "type": "boolean"
+                      },
+                      "data": {
+                        "type": "object",
+                        "description": "Sheet data in Zoho Sheet API format"
+                      },
+                      "resourceId": {
+                        "type": "string"
+                      },
+                      "range": {
+                        "type": "string"
                       }
                     }
                   }

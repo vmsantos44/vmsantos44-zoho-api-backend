@@ -1,0 +1,290 @@
+# API Error Testing Results
+
+**API Base URL:** https://vmsantos44-zoho-api-backend.vercel.app
+
+**Test Date:** [YYYY-MM-DD HH:MM:SS]
+
+**Tester:** [Your Name]
+
+**Environment:** [Production/Staging/Development]
+
+---
+
+## Summary
+
+| Metric | Count |
+|--------|-------|
+| Total Tests | 0 |
+| Passed | 0 |
+| Failed | 0 |
+| Skipped | 0 |
+| Duration | 0.00s |
+
+**Pass Rate:** 0%
+
+---
+
+## Endpoint Test Results
+
+### 1. GET /api/search-contact
+
+| Test Case | Expected Result | Actual Result | Status | Notes |
+|-----------|----------------|---------------|--------|-------|
+| Missing searchTerm parameter | 400 Bad Request | | ⬜ | |
+| Empty searchTerm parameter | 400 Bad Request | | ⬜ | |
+| POST method not allowed | 405 Method Not Allowed | | ⬜ | |
+| PUT method not allowed | 405 Method Not Allowed | | ⬜ | |
+| DELETE method not allowed | 405 Method Not Allowed | | ⬜ | |
+| Invalid limit parameter (non-numeric) | 400 Bad Request or graceful handling | | ⬜ | |
+| Negative limit parameter | 400 Bad Request or graceful handling | | ⬜ | |
+| Extremely large limit (1000000) | 400/413 or graceful handling | | ⬜ | |
+
+### 2. GET /api/search-lead
+
+| Test Case | Expected Result | Actual Result | Status | Notes |
+|-----------|----------------|---------------|--------|-------|
+| Missing searchTerm parameter | 400 Bad Request | | ⬜ | |
+| Empty searchTerm parameter | 400 Bad Request | | ⬜ | |
+| POST method not allowed | 405 Method Not Allowed | | ⬜ | |
+| Invalid limit parameter type | 400 Bad Request or graceful handling | | ⬜ | |
+
+### 3. GET /api/get-notes
+
+| Test Case | Expected Result | Actual Result | Status | Notes |
+|-----------|----------------|---------------|--------|-------|
+| Missing module and recordId | 400 Bad Request | | ⬜ | |
+| Missing module parameter | 400 Bad Request | | ⬜ | |
+| Missing recordId parameter | 400 Bad Request | | ⬜ | |
+| POST method not allowed | 405 Method Not Allowed | | ⬜ | |
+| Empty module parameter | 400 Bad Request | | ⬜ | |
+| Empty recordId parameter | 400 Bad Request | | ⬜ | |
+| Invalid recordId format (letters) | 400/500 | | ⬜ | |
+
+### 4. POST /api/send-email
+
+| Test Case | Expected Result | Actual Result | Status | Notes |
+|-----------|----------------|---------------|--------|-------|
+| GET method not allowed | 405 Method Not Allowed | | ⬜ | |
+| Missing all required fields | 400 Bad Request | | ⬜ | |
+| Missing toAddress field | 400 Bad Request | | ⬜ | |
+| Missing subject field | 400 Bad Request | | ⬜ | |
+| Missing body field | 400 Bad Request | | ⬜ | |
+| Invalid email format | 400/500 | | ⬜ | |
+| Malformed JSON body | 400 Bad Request | | ⬜ | |
+| Empty string fields | 400 Bad Request | | ⬜ | |
+| Extremely long body (1MB+) | 400/413/500 | | ⬜ | |
+
+### 5. POST /api/list-attachments
+
+| Test Case | Expected Result | Actual Result | Status | Notes |
+|-----------|----------------|---------------|--------|-------|
+| GET method not allowed | 405 Method Not Allowed | | ⬜ | |
+| Missing module and record_id | 400 Bad Request | | ⬜ | |
+| Missing module field | 400 Bad Request | | ⬜ | |
+| Missing record_id field | 400 Bad Request | | ⬜ | |
+| Invalid module name | 400/500 | | ⬜ | |
+| Malformed JSON body | 400 Bad Request | | ⬜ | |
+| Null field values | 400 Bad Request | | ⬜ | |
+
+### 6. POST /api/get-attachment
+
+| Test Case | Expected Result | Actual Result | Status | Notes |
+|-----------|----------------|---------------|--------|-------|
+| GET method not allowed | 405 Method Not Allowed | | ⬜ | |
+| Missing all required fields | 400 Bad Request | | ⬜ | |
+| Missing module field | 400 Bad Request | | ⬜ | |
+| Missing record_id field | 400 Bad Request | | ⬜ | |
+| Missing attachment_id field | 400 Bad Request | | ⬜ | |
+| Invalid attachment_id format | 400/404/500 | | ⬜ | |
+| Non-existent attachment ID | 404/500 | | ⬜ | |
+
+### 7. POST /api/add-note
+
+| Test Case | Expected Result | Actual Result | Status | Notes |
+|-----------|----------------|---------------|--------|-------|
+| GET method not allowed | 405 Method Not Allowed | | ⬜ | |
+| Missing all required fields | 400 Bad Request | | ⬜ | |
+| Missing module field | 400 Bad Request | | ⬜ | |
+| Missing record_id field | 400 Bad Request | | ⬜ | |
+| Missing note_content field | 400 Bad Request | | ⬜ | |
+| Empty note_content | 400 Bad Request | | ⬜ | |
+| Extremely long note_content (100KB+) | 400/413/500 | | ⬜ | |
+| Invalid module name | 400/500 | | ⬜ | |
+
+### 8. GET /api/get-record
+
+| Test Case | Expected Result | Actual Result | Status | Notes |
+|-----------|----------------|---------------|--------|-------|
+| POST method not allowed | 405 Method Not Allowed | | ⬜ | |
+| Missing module and recordId | 400 Bad Request | | ⬜ | |
+| Missing module parameter | 400 Bad Request | | ⬜ | |
+| Missing recordId parameter | 400 Bad Request | | ⬜ | |
+| Invalid module (not in valid list) | 400 Bad Request | | ⬜ | |
+| Non-existent recordId | 404/500 | | ⬜ | |
+| Invalid recordId format (letters) | 400/404/500 | | ⬜ | |
+| Empty module parameter | 400 Bad Request | | ⬜ | |
+| Lowercase module name | 400 Bad Request | | ⬜ | |
+
+### 9. GET /api/get-communications
+
+| Test Case | Expected Result | Actual Result | Status | Notes |
+|-----------|----------------|---------------|--------|-------|
+| POST method not allowed | 405 Method Not Allowed | | ⬜ | |
+| Missing module and recordId | 400 Bad Request | | ⬜ | |
+| Missing module parameter | 400 Bad Request | | ⬜ | |
+| Missing recordId parameter | 400 Bad Request | | ⬜ | |
+| Invalid module name | 400 Bad Request | | ⬜ | |
+| Non-existent recordId | 200/404/500 | | ⬜ | |
+| Invalid recordId format | 400/500 | | ⬜ | |
+
+### 10. GET /api/privacy-policy
+
+| Test Case | Expected Result | Actual Result | Status | Notes |
+|-----------|----------------|---------------|--------|-------|
+| POST method not allowed | 405 Method Not Allowed | | ⬜ | |
+| PUT method not allowed | 405 Method Not Allowed | | ⬜ | |
+| DELETE method not allowed | 405 Method Not Allowed | | ⬜ | |
+| Valid GET request returns 200 | 200 OK | | ⬜ | |
+
+### Cross-Cutting Concerns
+
+| Test Case | Expected Result | Actual Result | Status | Notes |
+|-----------|----------------|---------------|--------|-------|
+| CORS headers present | Present or handled | | ⬜ | |
+| JSON content-type for errors | application/json | | ⬜ | |
+| Non-existent endpoint returns 404 | 404 Not Found | | ⬜ | |
+| Root path handling | 200/301/302 | | ⬜ | |
+| OPTIONS request for CORS preflight | 200/204/405 | | ⬜ | |
+
+### Rate Limiting (if implemented)
+
+| Test Case | Expected Result | Actual Result | Status | Notes |
+|-----------|----------------|---------------|--------|-------|
+| Rapid sequential requests | 429 if rate limited | | ℹ️ | Informational only |
+
+---
+
+## Detailed Test Logs
+
+```
+[Paste console output from running node api-error-tests.js here]
+```
+
+---
+
+## Issues Discovered
+
+### Critical Issues
+
+1. **[Issue Title]**
+   - **Severity:** Critical
+   - **Endpoint:** /api/endpoint-name
+   - **Description:** Detailed description of the issue
+   - **Steps to Reproduce:**
+     1. Step 1
+     2. Step 2
+   - **Expected Behavior:** What should happen
+   - **Actual Behavior:** What actually happened
+   - **Impact:** Security/Data loss/Service disruption
+   - **Recommendation:** How to fix
+
+### High Priority Issues
+
+[Same format as above]
+
+### Medium Priority Issues
+
+[Same format as above]
+
+### Low Priority Issues
+
+[Same format as above]
+
+---
+
+## Security Concerns
+
+- [ ] Authentication/Authorization bypasses
+- [ ] SQL Injection vulnerabilities
+- [ ] XSS vulnerabilities
+- [ ] CSRF vulnerabilities
+- [ ] Rate limiting absent or ineffective
+- [ ] Sensitive data exposure in errors
+- [ ] Improper error handling revealing system details
+- [ ] Missing CORS configuration
+- [ ] Insecure direct object references
+
+---
+
+## Recommendations
+
+### Immediate Actions Required
+
+1. **[Recommendation]**
+   - Priority: Critical/High/Medium/Low
+   - Description: What needs to be done
+   - Endpoints affected: List of endpoints
+   - Implementation notes: How to implement
+
+### Future Improvements
+
+1. **[Improvement]**
+   - Description: What could be improved
+   - Benefit: Why it matters
+   - Effort: Low/Medium/High
+
+---
+
+## Test Environment Details
+
+| Detail | Value |
+|--------|-------|
+| Node.js Version | |
+| Operating System | |
+| Network Location | |
+| API Response Time (avg) | |
+| Test Framework | Native fetch API |
+
+---
+
+## Appendix
+
+### How to Run Tests
+
+1. Navigate to the tests directory:
+   ```bash
+   cd /Users/santos/Downloads/zoho-crm-gpt/tests
+   ```
+
+2. Make the test script executable:
+   ```bash
+   chmod +x api-error-tests.js
+   ```
+
+3. Run the tests:
+   ```bash
+   node api-error-tests.js
+   ```
+
+4. Review the console output and record results in this template.
+
+### Test Coverage
+
+This test suite covers:
+- ✅ Missing required parameters
+- ✅ Invalid data types
+- ✅ Invalid module names
+- ✅ Invalid record IDs
+- ✅ HTTP method validation
+- ✅ Malformed JSON handling
+- ✅ Large payload handling
+- ✅ Edge cases (empty strings, null values)
+- ✅ CORS configuration
+- ✅ Rate limiting detection
+
+### Notes
+
+- Use ✅ for passed tests
+- Use ❌ for failed tests
+- Use ⬜ for not yet run
+- Use ℹ️ for informational/skipped tests
