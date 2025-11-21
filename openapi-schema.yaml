@@ -1,0 +1,352 @@
+openapi: 3.0.0
+info:
+  title: Zoho CRM API Backend
+  description: API for interacting with Zoho CRM - search leads/contacts, manage notes, download attachments, and search by tags
+  version: 1.0.0
+servers:
+  - url: https://vmsantos44-zoho-api-backend.vercel.app
+    description: Production server
+
+paths:
+  /api/search-lead:
+    get:
+      operationId: searchLead
+      summary: Search for leads in Zoho CRM
+      description: Search leads by name or email
+      parameters:
+        - name: searchTerm
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Name or email to search for
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 10
+          description: Maximum number of results to return
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      type: object
+                  count:
+                    type: integer
+
+  /api/search-contact:
+    get:
+      operationId: searchContact
+      summary: Search for contacts in Zoho CRM
+      description: Search contacts by name or email
+      parameters:
+        - name: searchTerm
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Name or email to search for
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 10
+          description: Maximum number of results to return
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      type: object
+                  count:
+                    type: integer
+
+  /api/get-notes:
+    post:
+      operationId: getNotes
+      summary: Get notes for a CRM record
+      description: Retrieve all notes attached to a Zoho CRM record (Lead, Contact, Deal, etc.)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - module
+                - record_id
+              properties:
+                module:
+                  type: string
+                  enum: [Leads, Contacts, Deals, Accounts, Tasks]
+                  description: The CRM module name
+                record_id:
+                  type: string
+                  description: The record ID in Zoho CRM
+      responses:
+        '200':
+          description: Notes retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  notes:
+                    type: array
+                    items:
+                      type: object
+
+  /api/add-note:
+    post:
+      operationId: addNote
+      summary: Add a note to a CRM record
+      description: Create a new note attached to a Zoho CRM record
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - module
+                - record_id
+                - note_title
+                - note_content
+              properties:
+                module:
+                  type: string
+                  enum: [Leads, Contacts, Deals, Accounts, Tasks]
+                  description: The CRM module name
+                record_id:
+                  type: string
+                  description: The record ID in Zoho CRM
+                note_title:
+                  type: string
+                  description: Title of the note
+                note_content:
+                  type: string
+                  description: Content/body of the note
+      responses:
+        '200':
+          description: Note added successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+
+  /api/list-attachments:
+    post:
+      operationId: listAttachments
+      summary: List attachments for a CRM record
+      description: Get all attachments (files) attached to a Zoho CRM record
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - module
+                - record_id
+              properties:
+                module:
+                  type: string
+                  enum: [Leads, Contacts, Deals, Accounts]
+                  description: The CRM module name
+                record_id:
+                  type: string
+                  description: The record ID in Zoho CRM
+      responses:
+        '200':
+          description: Attachments list retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  count:
+                    type: integer
+                  attachments:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        file_name:
+                          type: string
+                        size:
+                          type: integer
+                        type:
+                          type: string
+
+  /api/get-attachment:
+    post:
+      operationId: getAttachment
+      summary: Download an attachment from CRM
+      description: Download a specific attachment file. For PDFs, includes extracted text. For images, returns base64 data for vision analysis.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - module
+                - record_id
+                - attachment_id
+              properties:
+                module:
+                  type: string
+                  enum: [Leads, Contacts, Deals, Accounts]
+                  description: The CRM module name
+                record_id:
+                  type: string
+                  description: The record ID in Zoho CRM
+                attachment_id:
+                  type: string
+                  description: The attachment ID to download
+      responses:
+        '200':
+          description: Attachment downloaded successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  file_name:
+                    type: string
+                  content_type:
+                    type: string
+                  size_bytes:
+                    type: integer
+                  data_base64:
+                    type: string
+                    description: Base64-encoded file data
+                  extracted_text:
+                    type: string
+                    nullable: true
+                    description: Extracted text from PDF files (null for non-PDF files)
+
+  /api/search-by-tag:
+    post:
+      operationId: searchByTag
+      summary: Search records by tag
+      description: Find all Leads, Contacts, and Tasks that have a specific tag assigned
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - tag
+              properties:
+                tag:
+                  type: string
+                  description: The tag name to search for
+                modules:
+                  type: array
+                  items:
+                    type: string
+                    enum: [Leads, Contacts, Tasks]
+                  default: [Leads, Contacts, Tasks]
+                  description: Which modules to search (defaults to all three)
+      responses:
+        '200':
+          description: Tag search completed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  tag:
+                    type: string
+                  total_count:
+                    type: integer
+                  results:
+                    type: object
+                    properties:
+                      Leads:
+                        type: object
+                        properties:
+                          success:
+                            type: boolean
+                          count:
+                            type: integer
+                          records:
+                            type: array
+                            items:
+                              type: object
+                      Contacts:
+                        type: object
+                        properties:
+                          success:
+                            type: boolean
+                          count:
+                            type: integer
+                          records:
+                            type: array
+                            items:
+                              type: object
+                      Tasks:
+                        type: object
+                        properties:
+                          success:
+                            type: boolean
+                          count:
+                            type: integer
+                          records:
+                            type: array
+                            items:
+                              type: object
+
+  /api/get-sheet-data:
+    get:
+      operationId: getSheetData
+      summary: Get data from Zoho WorkDrive sheet
+      description: Retrieve spreadsheet data from Zoho WorkDrive
+      parameters:
+        - name: resourceId
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The WorkDrive resource ID
+      responses:
+        '200':
+          description: Sheet data retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
