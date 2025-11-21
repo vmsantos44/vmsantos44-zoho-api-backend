@@ -59,11 +59,22 @@ export default async function handler(req, res) {
     });
 
   } catch (error) {
-    console.error('Error fetching attachment:', error.response?.data || error.message);
+    // Decode arraybuffer error if present
+    let errorDetails = error.message;
+    if (error.response?.data) {
+      try {
+        const decoded = Buffer.from(error.response.data).toString('utf8');
+        errorDetails = JSON.parse(decoded);
+      } catch {
+        errorDetails = error.response.data;
+      }
+    }
+    console.error('Error fetching attachment:', errorDetails);
     return res.status(500).json({
       success: false,
       error: 'Failed to fetch attachment',
-      details: error.response?.data || error.message
+      details: errorDetails,
+      status: error.response?.status
     });
   }
 }
