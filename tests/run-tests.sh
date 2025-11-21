@@ -14,7 +14,7 @@ NC='\033[0m' # No Color
 BOLD='\033[1m'
 
 # Configuration
-API_URL="https://vmsantos44-zoho-api-backend.vercel.app"
+API_URL="https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app"
 TEST_SCRIPT="api-error-tests.js"
 RESULTS_DIR="results"
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")

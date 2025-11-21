@@ -15,10 +15,14 @@ After deploying, go to your Vercel project settings and add these environment va
 - `ZOHO_CLIENT_ID`: Your Zoho OAuth Client ID
 - `ZOHO_CLIENT_SECRET`: Your Zoho OAuth Client Secret
 - `ZOHO_REFRESH_TOKEN`: Your Zoho OAuth Refresh Token
+- `ZOHO_FROM_EMAIL`: Default "from" address when GPT sends email via CRM
+- `ZOHO_WORKDRIVE_ORG_ID`: WorkDrive organization ID (required for document endpoints)
 
 Optional (if you're using a different Zoho datacenter):
 - `ZOHO_API_DOMAIN`: Default is `https://www.zohoapis.com`
 - `ZOHO_ACCOUNTS_DOMAIN`: Default is `https://accounts.zoho.com`
+- `ZOHO_WORKDRIVE_DEFAULT_PARENT_ID`: Default folder to search/list if none is provided
+- `PUBLIC_API_BASE_URL`: Base URL for download links (defaults to production deployment)
 
 ### 3. API Endpoints
 
@@ -57,6 +61,34 @@ Content-Type: application/json
 ```
 
 Sends an email via Zoho CRM.
+
+#### Search WorkDrive Documents
+```
+GET /api/workdrive-search?query=MSA&parentId=ld0abcdef12345
+```
+
+Searches Zoho WorkDrive for files/folders (optionally scoped to a specific folder). Returns normalized metadata plus ready-to-share download links.
+
+#### List Files in a WorkDrive Folder
+```
+GET /api/workdrive-list-files?parentId=ld0abcdef12345
+```
+
+Lists the contents of a specific WorkDrive folder (defaults to `ZOHO_WORKDRIVE_DEFAULT_PARENT_ID` when provided).
+
+#### Get WorkDrive File Details
+```
+GET /api/workdrive-file?fileId=ld0abcdef12345
+```
+
+Returns normalized metadata for a specific file along with a download URL the GPT can provide to users.
+
+#### Download WorkDrive File (human use)
+```
+GET /api/workdrive-download?fileId=ld0abcdef12345
+```
+
+Streams the binary file directly from WorkDrive through this API so users can download attachments that Sara references.
 
 ### 4. Using with Custom GPT
 

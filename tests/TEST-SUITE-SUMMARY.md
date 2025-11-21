@@ -1,7 +1,7 @@
 # Zoho CRM GPT API - Error Test Suite Summary
 
 **Created:** 2025-11-19
-**API Under Test:** https://vmsantos44-zoho-api-backend.vercel.app
+**API Under Test:** https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app
 **Test Coverage:** 10 endpoints, 90+ test cases
 
 ---

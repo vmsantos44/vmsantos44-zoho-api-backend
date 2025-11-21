@@ -69,14 +69,14 @@ If you want to test the endpoint **before** generating the new refresh token:
 
 ### Option 1: Test Schema Update
 ```bash
-curl https://vmsantos44-zoho-api-backend.vercel.app/api/schema | grep -A10 "get-sheet-data"
+curl https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app/api/schema | grep -A10 "get-sheet-data"
 ```
 
 **Expected:** You should see the new endpoint definition in the JSON response.
 
 ### Option 2: Test Endpoint (Will Fail on Auth, But Tests Structure)
 ```bash
-curl "https://vmsantos44-zoho-api-backend.vercel.app/api/get-sheet-data?resourceId=tdar2201260c19806490a9eac0aa6e771d83e&range=N6"
+curl "https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app/api/get-sheet-data?resourceId=tdar2201260c19806490a9eac0aa6e771d83e&range=N6"
 ```
 
 **Expected:**
@@ -90,7 +90,7 @@ curl "https://vmsantos44-zoho-api-backend.vercel.app/api/get-sheet-data?resource
 
 ### Using curl:
 ```bash
-curl "https://vmsantos44-zoho-api-backend.vercel.app/api/get-sheet-data?resourceId=tdar2201260c19806490a9eac0aa6e771d83e&range=N6"
+curl "https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app/api/get-sheet-data?resourceId=tdar2201260c19806490a9eac0aa6e771d83e&range=N6"
 ```
 
 **Expected Success Response:**
@@ -108,7 +108,7 @@ curl "https://vmsantos44-zoho-api-backend.vercel.app/api/get-sheet-data?resource
 ### Using Browser:
 Open this URL:
 ```
-https://vmsantos44-zoho-api-backend.vercel.app/api/get-sheet-data?resourceId=tdar2201260c19806490a9eac0aa6e771d83e&range=N6
+https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app/api/get-sheet-data?resourceId=tdar2201260c19806490a9eac0aa6e771d83e&range=N6
 ```
 
 ---
@@ -117,21 +117,21 @@ https://vmsantos44-zoho-api-backend.vercel.app/api/get-sheet-data?resourceId=tda
 
 ### Step 1: Verify Code is Deployed
 ```bash
-curl https://vmsantos44-zoho-api-backend.vercel.app/api/schema | jq '.info.version'
+curl https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app/api/schema | jq '.info.version'
 ```
 
 **Expected:** `"2.1.0"` (updated version)
 
 ### Step 2: Verify Endpoint Exists
 ```bash
-curl https://vmsantos44-zoho-api-backend.vercel.app/api/schema | jq '.paths | keys'
+curl https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app/api/schema | jq '.paths | keys'
 ```
 
 **Expected:** Should include `"/api/get-sheet-data"` in the list
 
 ### Step 3: Test Sheet Endpoint
 ```bash
-curl -i "https://vmsantos44-zoho-api-backend.vercel.app/api/get-sheet-data?resourceId=tdar2201260c19806490a9eac0aa6e771d83e&range=N6"
+curl -i "https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app/api/get-sheet-data?resourceId=tdar2201260c19806490a9eac0aa6e771d83e&range=N6"
 ```
 
 **Before token update:**
@@ -175,7 +175,7 @@ echo ""
 
 # Test 1: Schema version
 echo "1. Checking API version..."
-VERSION=$(curl -s https://vmsantos44-zoho-api-backend.vercel.app/api/schema | grep -o '"version":"[^"]*"' | cut -d'"' -f4)
+VERSION=$(curl -s https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app/api/schema | grep -o '"version":"[^"]*"' | cut -d'"' -f4)
 echo "   Version: $VERSION"
 if [ "$VERSION" = "2.1.0" ]; then
   echo "   ✅ Schema updated"
@@ -186,7 +186,7 @@ echo ""
 
 # Test 2: Endpoint exists
 echo "2. Checking if Sheet endpoint exists in schema..."
-if curl -s https://vmsantos44-zoho-api-backend.vercel.app/api/schema | grep -q "get-sheet-data"; then
+if curl -s https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app/api/schema | grep -q "get-sheet-data"; then
   echo "   ✅ Sheet endpoint found in schema"
 else
   echo "   ❌ Sheet endpoint NOT in schema"
@@ -195,7 +195,7 @@ echo ""
 
 # Test 3: Endpoint responds
 echo "3. Testing Sheet endpoint response..."
-HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" "https://vmsantos44-zoho-api-backend.vercel.app/api/get-sheet-data?resourceId=tdar2201260c19806490a9eac0aa6e771d83e&range=N6")
+HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" "https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app/api/get-sheet-data?resourceId=tdar2201260c19806490a9eac0aa6e771d83e&range=N6")
 echo "   HTTP Status: $HTTP_CODE"
 if [ "$HTTP_CODE" = "200" ]; then
   echo "   ✅ Endpoint working (token has Sheet scope)"

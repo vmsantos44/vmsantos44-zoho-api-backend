@@ -507,7 +507,7 @@ vercel deploy --prod
 # Rapid fire 120 requests (should hit limit at 100)
 for i in {1..120}; do
   curl -w "%{http_code}\n" -o /dev/null -s \
-    "https://vmsantos44-zoho-api-backend.vercel.app/api/search-contact?searchTerm=test"
+    "https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app/api/search-contact?searchTerm=test"
 done
 ```
 
@@ -528,7 +528,7 @@ async function testRateLimiting() {
 
   for (let i = 0; i < 120; i++) {
     const response = await fetch(
-      'https://vmsantos44-zoho-api-backend.vercel.app/api/search-contact?searchTerm=test'
+      'https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app/api/search-contact?searchTerm=test'
     );
 
     if (response.status === 200) successCount++;

@@ -1,6 +1,6 @@
 # API Error Testing Results
 
-**API Base URL:** https://vmsantos44-zoho-api-backend.vercel.app
+**API Base URL:** https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app
 
 **Test Date:** [YYYY-MM-DD HH:MM:SS]
 

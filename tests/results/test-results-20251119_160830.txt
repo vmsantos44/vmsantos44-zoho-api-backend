@@ -3,7 +3,7 @@
 ║   Zoho CRM GPT API - Comprehensive Error Test Suite       ║
 ╚════════════════════════════════════════════════════════════╝
 [0m
-[90mAPI: https://vmsantos44-zoho-api-backend.vercel.app[0m
+[90mAPI: https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app[0m
 [90mStarted: 2025-11-19T16:08:32.305Z[0m
 
 [1m[36mChecking API availability...[0m
@@ -147,4 +147,3 @@ Duration:     33.29s
 Completed:    2025-11-19T16:09:05.602Z
 
 [1m[36m============================================================[0m
-

@@ -9,7 +9,7 @@
 
 ## Executive Summary
 
-A comprehensive, production-ready error testing suite has been created for the Zoho CRM GPT API backend (https://vmsantos44-zoho-api-backend.vercel.app). The suite includes 92 test cases covering all 10 endpoints with focus on security, error handling, and edge cases.
+A comprehensive, production-ready error testing suite has been created for the Zoho CRM GPT API backend (https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app). The suite includes 92 test cases covering all 10 endpoints with focus on security, error handling, and edge cases.
 
 **Key Metrics:**
 - **Total Files:** 7 (2 executables, 5 documentation)

@@ -8,12 +8,12 @@ export default function handler(req, res) {
     "openapi": "3.1.0",
     "info": {
       "title": "Zoho CRM API",
-      "version": "2.1.0",
-      "description": "Search contacts and leads, view notes, send emails, view attachments, get full record details, view communications in Zoho CRM, and query reporting data from Zoho Sheet dashboard"
+      "version": "2.2.0",
+      "description": "Search contacts and leads, view notes, send emails, view attachments, retrieve full record and communication history, query Zoho Sheet dashboards, and search/download WorkDrive documents."
     },
     "servers": [
       {
-        "url": "https://vmsantos44-zoho-api-backend.vercel.app"
+        "url": "https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app"
       }
     ],
     "paths": {
@@ -640,6 +640,202 @@ export default function handler(req, res) {
                       },
                       "range": {
                         "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/workdrive-search": {
+        "get": {
+          "operationId": "workdriveSearch",
+          "summary": "Search Zoho WorkDrive for files and folders",
+          "parameters": [
+            {
+              "name": "query",
+              "in": "query",
+              "required": true,
+              "schema": { "type": "string" },
+              "description": "Keyword or phrase to search for"
+            },
+            {
+              "name": "parentId",
+              "in": "query",
+              "required": false,
+              "schema": { "type": "string" },
+              "description": "Optional WorkDrive folder ID to scope the search"
+            },
+            {
+              "name": "limit",
+              "in": "query",
+              "required": false,
+              "schema": { "type": "integer", "default": 20, "minimum": 1, "maximum": 200 },
+              "description": "Maximum number of results to return (default 20, max 200)"
+            },
+            {
+              "name": "offset",
+              "in": "query",
+              "required": false,
+              "schema": { "type": "integer", "default": 0, "minimum": 0 },
+              "description": "Number of results to skip before returning matches"
+            },
+            {
+              "name": "includeFolders",
+              "in": "query",
+              "required": false,
+              "schema": { "type": "string", "enum": ["true", "false"], "default": "true" },
+              "description": "Set to false to only return files"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "WorkDrive search results",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "success": { "type": "boolean" },
+                      "count": { "type": "integer" },
+                      "total": { "type": "integer" },
+                      "next_token": { "type": ["string", "null"] },
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": { "type": "string" },
+                            "name": { "type": "string" },
+                            "type": { "type": "string" },
+                            "parent_id": { "type": ["string", "null"] },
+                            "path": { "type": ["string", "null"] },
+                            "size": { "type": ["integer", "null"] },
+                            "mime_type": { "type": ["string", "null"] },
+                            "owner": { "type": ["string", "null"] },
+                            "created_time": { "type": ["string", "null"] },
+                            "modified_time": { "type": ["string", "null"] },
+                            "download_url": { "type": "string" },
+                            "preview_url": { "type": ["string", "null"] }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/workdrive-list-files": {
+        "get": {
+          "operationId": "workdriveListFiles",
+          "summary": "List the contents of a WorkDrive folder",
+          "parameters": [
+            {
+              "name": "parentId",
+              "in": "query",
+              "required": false,
+              "schema": { "type": "string" },
+              "description": "Folder ID to list. Defaults to ZOHO_WORKDRIVE_DEFAULT_PARENT_ID when omitted."
+            },
+            {
+              "name": "limit",
+              "in": "query",
+              "required": false,
+              "schema": { "type": "integer", "default": 50, "minimum": 1, "maximum": 200 },
+              "description": "Maximum number of files/folders to return"
+            },
+            {
+              "name": "nextToken",
+              "in": "query",
+              "required": false,
+              "schema": { "type": "string" },
+              "description": "Pagination token returned from a previous call"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "WorkDrive folder contents",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "success": { "type": "boolean" },
+                      "count": { "type": "integer" },
+                      "folder_id": { "type": ["string", "null"] },
+                      "next_token": { "type": ["string", "null"] },
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": { "type": "string" },
+                            "name": { "type": "string" },
+                            "type": { "type": "string" },
+                            "parent_id": { "type": ["string", "null"] },
+                            "path": { "type": ["string", "null"] },
+                            "size": { "type": ["integer", "null"] },
+                            "mime_type": { "type": ["string", "null"] },
+                            "owner": { "type": ["string", "null"] },
+                            "created_time": { "type": ["string", "null"] },
+                            "modified_time": { "type": ["string", "null"] },
+                            "download_url": { "type": "string" },
+                            "preview_url": { "type": ["string", "null"] }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/workdrive-file": {
+        "get": {
+          "operationId": "workdriveGetFile",
+          "summary": "Get metadata for a WorkDrive file",
+          "parameters": [
+            {
+              "name": "fileId",
+              "in": "query",
+              "required": true,
+              "schema": { "type": "string" },
+              "description": "WorkDrive file ID"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "WorkDrive file metadata",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "success": { "type": "boolean" },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "id": { "type": "string" },
+                          "name": { "type": "string" },
+                          "type": { "type": "string" },
+                          "parent_id": { "type": ["string", "null"] },
+                          "path": { "type": ["string", "null"] },
+                          "size": { "type": ["integer", "null"] },
+                          "mime_type": { "type": ["string", "null"] },
+                          "owner": { "type": ["string", "null"] },
+                          "created_time": { "type": ["string", "null"] },
+                          "modified_time": { "type": ["string", "null"] },
+                          "version": { "type": ["string", "null"] },
+                          "download_url": { "type": "string" },
+                          "preview_url": { "type": ["string", "null"] }
+                        }
                       }
                     }
                   }

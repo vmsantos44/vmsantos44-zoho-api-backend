@@ -8,7 +8,7 @@ Go to: https://api-console.zoho.com/
 
 - **Client Type:** Server-based Applications
 - **Client Name:** `Alfa Systems GPT Backend` (or any name WITHOUT "Zoho" in it)
-- **Homepage URL:** `https://vmsantos44-zoho-api-backend.vercel.app`
+- **Homepage URL:** `https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app`
 - **Authorized Redirect URIs:** `https://oauth.pstmn.io/v1/callback`
 
 Click **CREATE**
@@ -26,7 +26,7 @@ Keep these safe - you'll need them!
 Replace `YOUR_CLIENT_ID` below with your actual Client ID:
 
 ```
-https://accounts.zoho.com/oauth/v2/auth?scope=ZohoCRM.modules.ALL,ZohoCRM.settings.ALL,ZohoCRM.users.ALL,ZohoBooks.fullaccess.all,ZohoDrive.files.ALL,ZohoMail.messages.ALL,ZohoSheet.dataAPI.READ&client_id=YOUR_CLIENT_ID&response_type=code&access_type=offline&redirect_uri=https://oauth.pstmn.io/v1/callback
+https://accounts.zoho.com/oauth/v2/auth?scope=ZohoCRM.modules.ALL,ZohoCRM.settings.ALL,ZohoCRM.users.ALL,ZohoBooks.fullaccess.all,ZohoWorkDrive.files.ALL,ZohoMail.messages.ALL,ZohoSheet.dataAPI.READ&client_id=YOUR_CLIENT_ID&response_type=code&access_type=offline&redirect_uri=https://oauth.pstmn.io/v1/callback
 ```
 
 **What these scopes give you:**
@@ -34,7 +34,7 @@ https://accounts.zoho.com/oauth/v2/auth?scope=ZohoCRM.modules.ALL,ZohoCRM.settin
 - `ZohoCRM.settings.ALL` - Access to CRM settings
 - `ZohoCRM.users.ALL` - Access to user information
 - `ZohoBooks.fullaccess.all` - Full access to Zoho Books
-- `ZohoDrive.files.ALL` - Access to Zoho Drive files
+- `ZohoWorkDrive.files.ALL` - Access to WorkDrive files (MSA/NDA storage)
 - `ZohoMail.messages.ALL` - Access to Zoho Mail
 - `ZohoSheet.dataAPI.READ` - Read-only access to Zoho Sheet data (for CRM reporting dashboard)
 
@@ -90,7 +90,7 @@ After updating environment variables, Vercel will automatically redeploy.
 
 Wait 1-2 minutes, then test:
 ```
-https://vmsantos44-zoho-api-backend.vercel.app/api/search-lead?searchTerm=Santos
+https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app/api/search-lead?searchTerm=Santos
 ```
 
 ## Done!
@@ -109,10 +109,10 @@ Your Custom GPT can now call any of these endpoints successfully!
 ## Quick Reference
 
 **Your Vercel API:**
-- Base URL: `https://vmsantos44-zoho-api-backend.vercel.app`
+- Base URL: `https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app`
 - Endpoints: `/api/search-contact`, `/api/search-lead`, `/api/get-notes`, `/api/send-email`
 
 **Scopes requested:**
 ```
-ZohoCRM.modules.ALL,ZohoCRM.settings.ALL,ZohoCRM.users.ALL,ZohoBooks.fullaccess.all,ZohoDrive.files.ALL,ZohoMail.messages.ALL,ZohoSheet.dataAPI.READ
+ZohoCRM.modules.ALL,ZohoCRM.settings.ALL,ZohoCRM.users.ALL,ZohoBooks.fullaccess.all,ZohoWorkDrive.files.ALL,ZohoMail.messages.ALL,ZohoSheet.dataAPI.READ
 ```

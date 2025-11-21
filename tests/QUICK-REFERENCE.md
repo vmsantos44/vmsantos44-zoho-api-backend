@@ -147,7 +147,7 @@ tests/
 
 ## Useful API URLs
 
-- **API Base:** https://vmsantos44-zoho-api-backend.vercel.app
+- **API Base:** https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app
 - **Health Check:** /api/privacy-policy (always returns 200)
 - **Vercel Dashboard:** https://vercel.com/dashboard
 

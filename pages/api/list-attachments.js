@@ -1,4 +1,5 @@
 const axios = require('axios');
+const { getPublicApiBaseUrl } = require('../../lib/public-base-url');
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -42,6 +43,7 @@ export default async function handler(req, res) {
 
     // Format attachment data for easy viewing
     if (response.data.data && response.data.data.length > 0) {
+      const publicBase = getPublicApiBaseUrl();
       const attachments = response.data.data.map(att => ({
         id: att.id,
         file_name: att.File_Name,
@@ -49,7 +51,7 @@ export default async function handler(req, res) {
         type: att.$file_type,
         created_time: att.Created_Time,
         created_by: att.Created_By?.name,
-        download_url: `https://vmsantos44-zoho-api-backend.vercel.app/api/get-attachment?module=${module}&record_id=${record_id}&attachment_id=${att.id}`
+        download_url: `${publicBase}/api/get-attachment?module=${module}&record_id=${record_id}&attachment_id=${att.id}`
       }));
 
       return res.status(200).json({

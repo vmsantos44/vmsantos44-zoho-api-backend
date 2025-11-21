@@ -60,7 +60,7 @@ Vercel will automatically redeploy when you update environment variables.
 | `ZohoCRM.settings.ALL` | Access CRM settings |
 | `ZohoCRM.users.ALL` | Access user information |
 | `ZohoBooks.fullaccess.all` | Full access to Zoho Books |
-| `ZohoDrive.files.ALL` | Access to Zoho Drive files |
+| `ZohoWorkDrive.files.ALL` | Access to WorkDrive files |
 | `ZohoMail.messages.ALL` | Access to Zoho Mail |
 
 ## Why This Happens

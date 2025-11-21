@@ -2,12 +2,12 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Zoho CRM API",
-    "version": "1.0.0",
-    "description": "Search contacts and leads, view notes, and send emails in Zoho CRM"
+    "version": "2.2.0",
+    "description": "Search contacts and leads, view notes, send emails, and retrieve WorkDrive documents used in Alfa Systems recruiting."
   },
   "servers": [
     {
-      "url": "https://vmsantos44-zoho-api-backend.vercel.app"
+      "url": "https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app"
     }
   ],
   "paths": {
@@ -178,6 +178,149 @@
                     },
                     "data": {
                       "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/workdrive-search": {
+      "get": {
+        "operationId": "workdriveSearch",
+        "summary": "Search Zoho WorkDrive for documents",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Keyword or phrase to search for"
+          },
+          {
+            "name": "parentId",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "Optional WorkDrive folder ID to scope search results"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "integer", "default": 20, "minimum": 1, "maximum": 200 }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "WorkDrive search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "count": { "type": "integer" },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": { "type": "string" },
+                          "name": { "type": "string" },
+                          "type": { "type": "string" },
+                          "path": { "type": ["string", "null"] },
+                          "size": { "type": ["integer", "null"] },
+                          "owner": { "type": ["string", "null"] },
+                          "modified_time": { "type": ["string", "null"] },
+                          "download_url": { "type": "string" }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/workdrive-list-files": {
+      "get": {
+        "operationId": "workdriveListFiles",
+        "summary": "List files in a WorkDrive folder",
+        "parameters": [
+          {
+            "name": "parentId",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "Folder ID to list. Defaults to env configuration when omitted."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Folder contents",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "count": { "type": "integer" },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": { "type": "string" },
+                          "name": { "type": "string" },
+                          "type": { "type": "string" },
+                          "download_url": { "type": "string" }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/workdrive-file": {
+      "get": {
+        "operationId": "workdriveGetFile",
+        "summary": "Get metadata for a WorkDrive file",
+        "parameters": [
+          {
+            "name": "fileId",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "File metadata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": { "type": "string" },
+                        "name": { "type": "string" },
+                        "type": { "type": "string" },
+                        "size": { "type": ["integer", "null"] },
+                        "owner": { "type": ["string", "null"] },
+                        "download_url": { "type": "string" }
+                      }
                     }
                   }
                 }

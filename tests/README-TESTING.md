@@ -2,7 +2,7 @@
 
 This directory contains a comprehensive error testing suite for the Zoho CRM GPT API backend deployed at:
 
-**API URL:** https://vmsantos44-zoho-api-backend.vercel.app
+**API URL:** https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app
 
 ## Overview
 
@@ -733,7 +733,7 @@ node api-error-tests.js
 Update `api-error-tests.js`:
 
 ```javascript
-const API_BASE_URL = process.env.API_BASE_URL || 'https://vmsantos44-zoho-api-backend.vercel.app';
+const API_BASE_URL = process.env.API_BASE_URL || 'https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app';
 const TEST_TIMEOUT = parseInt(process.env.TEST_TIMEOUT) || 10000;
 ```
 

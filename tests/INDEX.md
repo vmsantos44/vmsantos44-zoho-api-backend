@@ -302,7 +302,7 @@ grep -A 20 "Security" results/test-results-*.txt
 ## Key Information
 
 ### API Under Test
-**URL:** https://vmsantos44-zoho-api-backend.vercel.app
+**URL:** https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app
 
 ### Test Statistics
 - **Endpoints:** 10

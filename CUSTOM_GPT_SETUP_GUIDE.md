@@ -50,14 +50,18 @@ Upload the knowledge base file:
 3. Click "Import from URL"
 4. Enter this URL:
    ```
-   https://vmsantos44-zoho-api-backend.vercel.app/api/schema
+   https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app/api/schema
    ```
 5. Click "Import"
 
-You should see 4 actions automatically configured:
-- ✅ searchContact
-- ✅ searchLead
+You should see these actions automatically configured:
+- ✅ searchContact / searchLead
+- ✅ getRecord
+- ✅ getCommunications
 - ✅ getNotes
+- ✅ listAttachments
+- ✅ getSheetData
+- ✅ workdriveSearch / workdriveListFiles / workdriveGetFile
 - ✅ sendEmail
 
 ### Authentication Setup
@@ -129,7 +133,7 @@ What are the latest notes for [candidate name]?
 ### "I can't find that action"
 - Make sure you imported the schema URL correctly
 - Check that Vercel deployed successfully
-- Verify the URL: https://vmsantos44-zoho-api-backend.vercel.app/api/schema
+- Verify the URL: https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app/api/schema
 
 ### "Authentication failed"
 - The API uses server-side authentication (Vercel environment variables)
@@ -229,7 +233,7 @@ As you use the GPT:
 ### Getting Help
 - Check Vercel deployment logs for API errors
 - Review Custom GPT action logs for integration issues
-- Test individual API endpoints directly: https://vmsantos44-zoho-api-backend.vercel.app
+- Test individual API endpoints directly: https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app
 
 ### Updating This Guide
 As you discover better practices:
@@ -245,7 +249,7 @@ As you discover better practices:
 1. Create new GPT in ChatGPT
 2. Paste instructions from `CUSTOM_GPT_INSTRUCTIONS.md`
 3. Upload `CRM_KNOWLEDGE_BASE.md` as knowledge
-4. Import actions from `https://vmsantos44-zoho-api-backend.vercel.app/api/schema`
+4. Import actions from `https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app/api/schema`
 5. Set authentication to "None"
 6. Save and test
 
@@ -261,4 +265,4 @@ Your team now has an intelligent CRM assistant that:
 
 **Created:** November 2025
 **Last Updated:** November 2025
-**API Status:** https://vmsantos44-zoho-api-backend.vercel.app
+**API Status:** https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app

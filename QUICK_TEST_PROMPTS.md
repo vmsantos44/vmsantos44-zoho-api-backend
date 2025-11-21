@@ -55,15 +55,15 @@ Test if the code is deployed:
 
 ```bash
 # Test 1: Check API version
-curl https://vmsantos44-zoho-api-backend.vercel.app/api/schema | grep '"version"'
+curl https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app/api/schema | grep '"version"'
 # Expected: "version":"2.1.0"
 
 # Test 2: Check endpoint exists
-curl https://vmsantos44-zoho-api-backend.vercel.app/api/schema | grep "get-sheet-data"
+curl https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app/api/schema | grep "get-sheet-data"
 # Expected: Should see the endpoint definition
 
 # Test 3: Try calling it (will fail until token updated)
-curl "https://vmsantos44-zoho-api-backend.vercel.app/api/get-sheet-data?resourceId=tdar2201260c19806490a9eac0aa6e771d83e&range=N6"
+curl "https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app/api/get-sheet-data?resourceId=tdar2201260c19806490a9eac0aa6e771d83e&range=N6"
 # Expected: Error about missing scope (until you update token)
 ```
 

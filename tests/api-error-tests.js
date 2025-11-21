@@ -3,12 +3,12 @@
 /**
  * Comprehensive Error Testing Suite for Zoho CRM GPT API
  * Tests all error scenarios for the API deployed at:
- * https://vmsantos44-zoho-api-backend.vercel.app
+ * https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app
  *
  * Run: node api-error-tests.js
  */
 
-const API_BASE_URL = 'https://vmsantos44-zoho-api-backend.vercel.app';
+const API_BASE_URL = 'https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app';
 
 // Color codes for terminal output
 const colors = {

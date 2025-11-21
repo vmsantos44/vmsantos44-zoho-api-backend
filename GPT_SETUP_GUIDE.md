@@ -48,14 +48,14 @@ None required (API-based)
 
 **Import Schema From:**
 ```
-https://vmsantos44-zoho-api-backend.vercel.app/api/schema
+https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app/api/schema
 ```
 
 **Authentication:** None (handled server-side via environment variables)
 
 **Privacy Policy URL:**
 ```
-https://vmsantos44-zoho-api-backend.vercel.app/api/privacy-policy-html
+https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app/api/privacy-policy-html
 ```
 
 ---
@@ -167,7 +167,7 @@ If you need to add more:
 ## ⚠️ Common Issues & Solutions
 
 ### Issue 1: "API call failed"
-**Solution:** Check that Vercel deployment is live at https://vmsantos44-zoho-api-backend.vercel.app
+**Solution:** Check that Vercel deployment is live at https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app
 
 ### Issue 2: "No candidates found"
 **Solution:** Verify candidate exists in Zoho CRM, check spelling

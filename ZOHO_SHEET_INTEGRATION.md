@@ -17,7 +17,7 @@ Added `ZohoSheet.dataAPI.READ` scope for read-only access to Zoho Sheet data.
 
 **New authorization URL:**
 ```
-https://accounts.zoho.com/oauth/v2/auth?scope=ZohoCRM.modules.ALL,ZohoCRM.settings.ALL,ZohoCRM.users.ALL,ZohoBooks.fullaccess.all,ZohoDrive.files.ALL,ZohoMail.messages.ALL,ZohoSheet.dataAPI.READ&client_id=YOUR_CLIENT_ID&response_type=code&access_type=offline&redirect_uri=https://oauth.pstmn.io/v1/callback
+https://accounts.zoho.com/oauth/v2/auth?scope=ZohoCRM.modules.ALL,ZohoCRM.settings.ALL,ZohoCRM.users.ALL,ZohoBooks.fullaccess.all,ZohoWorkDrive.files.ALL,ZohoMail.messages.ALL,ZohoSheet.dataAPI.READ&client_id=YOUR_CLIENT_ID&response_type=code&access_type=offline&redirect_uri=https://oauth.pstmn.io/v1/callback
 ```
 
 ### 2. New API Endpoint ✅
@@ -85,7 +85,7 @@ You need a **new refresh token** with the additional Sheet scope.
    Replace `YOUR_CLIENT_ID` with `1000.U6BSPSC0V6PL9B334JHWYQUOSBZECL`:
 
    ```
-   https://accounts.zoho.com/oauth/v2/auth?scope=ZohoCRM.modules.ALL,ZohoCRM.settings.ALL,ZohoCRM.users.ALL,ZohoBooks.fullaccess.all,ZohoDrive.files.ALL,ZohoMail.messages.ALL,ZohoSheet.dataAPI.READ&client_id=1000.U6BSPSC0V6PL9B334JHWYQUOSBZECL&response_type=code&access_type=offline&redirect_uri=https://oauth.pstmn.io/v1/callback
+   https://accounts.zoho.com/oauth/v2/auth?scope=ZohoCRM.modules.ALL,ZohoCRM.settings.ALL,ZohoCRM.users.ALL,ZohoBooks.fullaccess.all,ZohoWorkDrive.files.ALL,ZohoMail.messages.ALL,ZohoSheet.dataAPI.READ&client_id=1000.U6BSPSC0V6PL9B334JHWYQUOSBZECL&response_type=code&access_type=offline&redirect_uri=https://oauth.pstmn.io/v1/callback
    ```
 
 4. **Visit the URL** in your browser
@@ -253,7 +253,7 @@ Returns result instantly (1 API call)
 
 **Solution:**
 - Wait 1-2 minutes for Vercel to redeploy
-- Test the schema manually: https://vmsantos44-zoho-api-backend.vercel.app/api/schema
+- Test the schema manually: https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app/api/schema
 - Look for `/api/get-sheet-data` in the JSON response
 
 ---
@@ -263,7 +263,7 @@ Returns result instantly (1 API call)
 ### Test the endpoint directly:
 
 ```bash
-curl "https://vmsantos44-zoho-api-backend.vercel.app/api/get-sheet-data?resourceId=tdar2201260c19806490a9eac0aa6e771d83e&range=N6"
+curl "https://vmsantos44-zoho-api-backend-djnrgh2p4.vercel.app/api/get-sheet-data?resourceId=tdar2201260c19806490a9eac0aa6e771d83e&range=N6"
 ```
 
 **Expected response:**
