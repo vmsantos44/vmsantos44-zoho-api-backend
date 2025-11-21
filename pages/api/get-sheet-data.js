@@ -10,10 +10,10 @@ let cache = {
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutes in ms
 
 async function fetchSheetFromZoho(resourceId, accessToken) {
-  // Zoho Sheet API requires method in URL query string for POST requests
-  const url = `https://sheet.zoho.com/api/v2/${resourceId}?method=workbook.data.get`;
+  // Use Zoho WorkDrive API to download the file
+  const url = `https://workdrive.zoho.com/api/v1/download/${resourceId}`;
 
-  const response = await axios.post(url, {}, {
+  const response = await axios.get(url, {
     headers: {
       'Authorization': `Zoho-oauthtoken ${accessToken}`
     }
