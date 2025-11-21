@@ -1,4 +1,5 @@
 const axios = require('axios');
+const pdf = require('pdf-parse');
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -49,13 +50,26 @@ export default async function handler(req, res) {
 
     // Convert to base64 for GPT compatibility
     const base64Data = Buffer.from(response.data).toString('base64');
+    const fileBuffer = Buffer.from(response.data);
+
+    // Extract text from PDF if applicable
+    let extractedText = null;
+    if (contentType === 'application/pdf' || fileName.toLowerCase().endsWith('.pdf')) {
+      try {
+        const pdfData = await pdf(fileBuffer);
+        extractedText = pdfData.text;
+      } catch (pdfError) {
+        console.error('PDF extraction failed:', pdfError.message);
+      }
+    }
 
     return res.status(200).json({
       success: true,
       file_name: fileName,
       content_type: contentType,
       size_bytes: response.data.byteLength,
-      data_base64: base64Data
+      data_base64: base64Data,
+      extracted_text: extractedText
     });
 
   } catch (error) {
