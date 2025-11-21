@@ -30,9 +30,9 @@ export default async function handler(req, res) {
 
     const accessToken = tokenResponse.data.access_token;
 
-    // Fetch attachment from Zoho CRM (using v5 API)
+    // Fetch attachment content from Zoho CRM
     const response = await axios.get(
-      `https://www.zohoapis.com/crm/v5/${module}/${record_id}/Attachments/${attachment_id}`,
+      `https://www.zohoapis.com/crm/v2.1/${module}/${record_id}/Attachments/${attachment_id}`,
       {
         headers: {
           'Authorization': `Zoho-oauthtoken ${accessToken}`
