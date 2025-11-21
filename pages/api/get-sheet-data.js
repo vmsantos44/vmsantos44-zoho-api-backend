@@ -10,16 +10,12 @@ let cache = {
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutes in ms
 
 async function fetchSheetFromZoho(resourceId, accessToken) {
-  // Use POST with method in body as required by Zoho Sheet API
-  const url = `https://sheet.zoho.com/api/v2/${resourceId}`;
+  // Zoho Sheet API requires method in URL query string for POST requests
+  const url = `https://sheet.zoho.com/api/v2/${resourceId}?method=workbook.data.get`;
 
-  const postData = new URLSearchParams();
-  postData.append('method', 'workbook.data.get');
-
-  const response = await axios.post(url, postData.toString(), {
+  const response = await axios.post(url, {}, {
     headers: {
-      'Authorization': `Zoho-oauthtoken ${accessToken}`,
-      'Content-Type': 'application/x-www-form-urlencoded'
+      'Authorization': `Zoho-oauthtoken ${accessToken}`
     }
   });
 
