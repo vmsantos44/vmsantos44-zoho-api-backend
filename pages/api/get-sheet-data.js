@@ -5,13 +5,16 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { resourceId, range } = req.query;
+  const { resourceId, range, worksheet } = req.query;
 
   if (!resourceId) {
     return res.status(400).json({
       error: 'Missing required parameter: resourceId (the Zoho Sheet ID)'
     });
   }
+
+  // Default worksheet name if not provided
+  const worksheetName = worksheet || 'Sheet1';
 
   try {
     // Get access token using refresh token
@@ -30,11 +33,20 @@ export default async function handler(req, res) {
 
     const accessToken = tokenResponse.data.access_token;
 
-    // Build the API URL
-    // If range is provided (e.g., "N6" or "A1:D10"), use it
-    // Otherwise fetch the entire first sheet
+    // Build the API URL with method parameter for Zoho Sheet API v2
+    // The API requires specifying the method in the URL for data operations
     const baseUrl = `https://sheet.zoho.com/api/v2/${resourceId}`;
-    const url = range ? `${baseUrl}?range=${encodeURIComponent(range)}` : baseUrl;
+
+    // Build query parameters
+    const params = new URLSearchParams();
+    params.append('method', 'worksheet.records.fetch');
+    params.append('worksheet_name', worksheetName);
+
+    if (range) {
+      params.append('range', range);
+    }
+
+    const url = `${baseUrl}?${params.toString()}`;
 
     // Fetch data from Zoho Sheet
     const response = await axios.get(url, {
@@ -47,7 +59,8 @@ export default async function handler(req, res) {
       success: true,
       data: response.data,
       resourceId: resourceId,
-      range: range || 'entire sheet'
+      worksheet: worksheetName,
+      range: range || 'all records'
     });
 
   } catch (error) {

@@ -611,13 +611,23 @@ export default function handler(req, res) {
               "description": "The Zoho Sheet resource ID (from the sheet URL). Example: 'tdar2201260c19806490a9eac0aa6e771d83e'"
             },
             {
+              "name": "worksheet",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "default": "Sheet1"
+              },
+              "description": "The worksheet/tab name to read from. Default: 'Sheet1'"
+            },
+            {
               "name": "range",
               "in": "query",
               "required": false,
               "schema": {
                 "type": "string"
               },
-              "description": "Optional cell range to retrieve. Examples: 'N6' (single cell), 'A1:D10' (range), 'Sheet1!A1:B5' (specific sheet). Omit to get entire first sheet."
+              "description": "Optional cell range to retrieve. Examples: 'N6' (single cell), 'A1:D10' (range). Omit to get all records."
             }
           ],
           "responses": {
@@ -636,6 +646,9 @@ export default function handler(req, res) {
                         "description": "Sheet data in Zoho Sheet API format"
                       },
                       "resourceId": {
+                        "type": "string"
+                      },
+                      "worksheet": {
                         "type": "string"
                       },
                       "range": {
