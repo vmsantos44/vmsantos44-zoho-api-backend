@@ -34,24 +34,21 @@ export default async function handler(req, res) {
     const accessToken = tokenResponse.data.access_token;
 
     // Build the API URL for Zoho Sheet API v2
-    // API requires POST method with method parameter in URL
-    const baseUrl = `https://sheet.zoho.com/api/v2/${resourceId}`;
+    const url = `https://sheet.zoho.com/api/v2/${resourceId}`;
 
-    // Build query parameters - method goes in URL for POST requests
-    const params = new URLSearchParams();
-    params.append('method', 'worksheet.jsondata.get');
-    params.append('worksheet_name', worksheetName);
-
+    // Build POST body with method and parameters
+    const postData = new URLSearchParams();
+    postData.append('method', 'worksheet.jsondata.get');
+    postData.append('worksheet_name', worksheetName);
     if (range) {
-      params.append('range', range);
+      postData.append('range', range);
     }
 
-    const url = `${baseUrl}?${params.toString()}`;
-
-    // Fetch data from Zoho Sheet using POST
-    const response = await axios.post(url, null, {
+    // Fetch data from Zoho Sheet using POST with form data
+    const response = await axios.post(url, postData.toString(), {
       headers: {
-        'Authorization': `Zoho-oauthtoken ${accessToken}`
+        'Authorization': `Zoho-oauthtoken ${accessToken}`,
+        'Content-Type': 'application/x-www-form-urlencoded'
       }
     });
 
