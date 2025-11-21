@@ -15,7 +15,8 @@ async function fetchSheetFromZoho(resourceId, accessToken) {
 
   const response = await axios.get(url, {
     headers: {
-      'Authorization': `Zoho-oauthtoken ${accessToken}`
+      'Authorization': `Zoho-oauthtoken ${accessToken}`,
+      'Accept': 'application/vnd.api+json'
     }
   });
 
