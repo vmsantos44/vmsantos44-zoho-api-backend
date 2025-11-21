@@ -41,13 +41,22 @@ export default async function handler(req, res) {
       }
     );
 
-    // Get the file content
-    const contentType = response.headers['content-type'];
+    // Get file info from headers
+    const contentType = response.headers['content-type'] || 'application/octet-stream';
+    const contentDisposition = response.headers['content-disposition'] || '';
+    const fileNameMatch = contentDisposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/);
+    const fileName = fileNameMatch ? fileNameMatch[1].replace(/['"]/g, '') : `attachment_${attachment_id}`;
 
-    // Return the file
-    res.setHeader('Content-Type', contentType || 'application/octet-stream');
-    res.setHeader('Content-Disposition', `inline; filename="attachment_${attachment_id}"`);
-    return res.send(Buffer.from(response.data));
+    // Convert to base64 for GPT compatibility
+    const base64Data = Buffer.from(response.data).toString('base64');
+
+    return res.status(200).json({
+      success: true,
+      file_name: fileName,
+      content_type: contentType,
+      size_bytes: response.data.byteLength,
+      data_base64: base64Data
+    });
 
   } catch (error) {
     console.error('Error fetching attachment:', error.response?.data || error.message);
